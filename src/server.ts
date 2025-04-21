@@ -45,12 +45,27 @@ app.use(cookieParser())
 // app.use(cors())
 
 
-app.use(cors({
-    origin: "http://localhost:4200",
-    methods: "POST,GET, PUT,PATCH,DELETE",
-    credentials: true //allows cookies and auth headers
-}))
+const allowedOrigins = [
+    'http://localhost:4200',
+    'https://skillsmatchai.vercel.app',
+  ];
+  
+  app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, origin);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true 
+  }));
+  
 
+  app.options('*', cors());
+  
 
 //4. routes 
 app.use("/api/v1/auth", authRoutes)

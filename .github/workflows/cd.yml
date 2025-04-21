@@ -1,0 +1,24 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Delete old Docker container
+        run: sudo docker rm -f backend || true
+
+      - name: Delete old Docker image
+        run: sudo docker rmi kaloi6/backend2 || true
+
+      - name: Pull latest image from Docker Hub
+        run: sudo docker pull kaloi6/backend2
+
+      - name: Run new Docker container
+        run: sudo docker run -d -p 80:80 --name backend kaloi6/backend2
