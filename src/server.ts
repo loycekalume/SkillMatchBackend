@@ -71,7 +71,7 @@ const allowedOrigins = [
 
 //4. routes 
 app.use("/api/v1/auth", authRoutes)
-app.use("/api/v1/careerpaths", careerpathsRoutes)
+app.use("/api/v1/careerpath", careerpathsRoutes)
 app.use("/api/v1/users", userRoutes)
 app.use("/api/v1/applications", applicationsRoutes)
 app.use("/api/v1/user_skills", userSkillsRoutes)
