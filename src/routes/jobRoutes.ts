@@ -9,7 +9,7 @@ import {
 import { protect, requireRole } from "../middlewares/auth/protect";
 
 const router = express.Router();
-router.use(protect);
+
 router.get("/", getJobs);
 router.get("/:id", getJobById);
 

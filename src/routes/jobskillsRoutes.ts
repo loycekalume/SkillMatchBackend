@@ -8,7 +8,6 @@ import {
 import { protect, requireRole } from "../middlewares/auth/protect";
 
 const router = express.Router();
-router.use(protect);
 router.use(requireRole(["employer", "admin"]));
 
 router.post("/", createJobSkill);

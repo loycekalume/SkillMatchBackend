@@ -24,7 +24,7 @@ export const generateToken = (res:Response, userId: string, role: string) => {
         res.cookie("access_token", accessToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV !== "development", 
-            sameSite: "strict",
+            sameSite: "none",
             maxAge: 15 * 60 * 1000, // 15 minutes
         });
 

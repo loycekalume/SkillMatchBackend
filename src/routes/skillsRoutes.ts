@@ -1,6 +1,6 @@
 import express from 'express'
 import { createSkill, deleteSkill, getSkillById, getSkills, updateSkill } from '../controllers/skillsControllers'
-import { protect, requireRole } from '../middlewares/auth/protect';
+
 
 
 const router = express.Router()

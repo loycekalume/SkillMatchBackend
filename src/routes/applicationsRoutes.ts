@@ -9,7 +9,7 @@ import {
 import { protect } from "../middlewares/auth/protect";
 
 const router = Router();
-router.use(protect);
+
 
 router.post("/", createApplication);
 router.get("/", getApplications);

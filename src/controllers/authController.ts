@@ -41,6 +41,7 @@ export const registerUser = asyncHandler(async (req: Request, res: Response, nex
 });
 
 // Login User
+// Login User
 export const loginUser = asyncHandler(async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
@@ -61,10 +62,11 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
         return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    await generateToken(res, user.user_id, user.role);
+    const token = await generateToken(res, user.user_id, user.role);
 
     res.status(200).json({
         message: "Login successful",
+        token: token, // Include token in response body
         user: {
             id: user.user_id,
             email: user.email,
@@ -74,7 +76,6 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
         },
     });
 });
-
 // Logout User
 export const logoutUser = asyncHandler(async (req: Request, res: Response) => {
     res.cookie("access_token", "", {

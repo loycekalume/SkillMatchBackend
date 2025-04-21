@@ -9,7 +9,6 @@ import {
 import { protect } from "../middlewares/auth/protect";
 
 const router = express.Router();
-router.use(protect);
 
 router.post("/", addJobSeekerSkill);
 router.get("/", getAllJobSeekerSkills);

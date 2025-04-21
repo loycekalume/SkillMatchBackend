@@ -9,10 +9,10 @@ import {  deleteUser, getUsers, getUserById, putUser } from '../controllers/user
 const router = express.Router()
 
 
-router.get("/",getUsers),
-router.put("/",putUser ),
-router.delete("/:id", deleteUser),
-router.get("/:id", getUserById)
+router.get("/",getUsers);
+router.put("/",putUser );
+router.delete("/:id", deleteUser);
+router.get("/:id", getUserById);
 
 
 export default router

@@ -3,7 +3,7 @@ import { createInterview, getInterviews, getInterviewById, updateInterview, dele
 import { protect } from '../middlewares/auth/protect';
 
 const router = express.Router();
-router.use(protect);
+
 
 router.post('/', createInterview);
 
