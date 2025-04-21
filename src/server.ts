@@ -50,7 +50,7 @@ app.use(cookieParser())
 const allowedOrigins = [
     'http://localhost:4200',
     'https://skillsmatchai.vercel.app',
-    'http://98.84.100.187', 
+    'http://98.84.100.187:4200', 
   ];
   
   app.use(cors({
