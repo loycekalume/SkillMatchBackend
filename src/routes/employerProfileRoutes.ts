@@ -8,7 +8,7 @@ import { protect, requireRole } from '../middlewares/auth/protect';
 const router = express.Router()
 router.use(protect);
 
-
+//employer routes
 router.get("/", getEmployerProfiles),
 router.post("/", createEmployerProfile),
 router.put("/:id", putEmployerProfile),
