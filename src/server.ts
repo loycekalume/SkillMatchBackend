@@ -14,7 +14,8 @@ import jobskillsRoutes from './routes/jobskillsRoutes'
 import applicationsRoutes from './routes/applicationsRoutes'
 import interviewsRoutes from './routes/interviewsRoutes'
 import authRoutes from './routes/authRoutes'
-import careerpathsRoutes from './routes/careerpathsRoutes'
+
+
 
 
 
@@ -72,7 +73,7 @@ const allowedOrigins = [
 
 //4. routes 
 app.use("/api/v1/auth", authRoutes)
-app.use("/api/v1/careerpath", careerpathsRoutes)
+
 app.use("/api/v1/users", userRoutes)
 app.use("/api/v1/applications", applicationsRoutes)
 app.use("/api/v1/user_skills", userSkillsRoutes)
