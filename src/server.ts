@@ -14,7 +14,7 @@ import jobskillsRoutes from './routes/jobskillsRoutes'
 import applicationsRoutes from './routes/applicationsRoutes'
 import interviewsRoutes from './routes/interviewsRoutes'
 import authRoutes from './routes/authRoutes'
-import careerpathsRoutes from './routes/careerPathsRoutes'
+import careerpathsRoutes from './routes/careerpathsRoutes'
 
 
 
