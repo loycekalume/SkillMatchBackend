@@ -27,7 +27,7 @@ import asyncHandler from "../middlewares/asyncHandler"
 //         res.status(500).json({ message: "Internal server error" });
 //     }
 // });
-console.log("GET USERS HIT — not protected");
+
 
 export const getUsers = asyncHandler( async (req: Request, res: Response) => {
     try {

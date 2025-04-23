@@ -85,7 +85,7 @@ app.use("/api/v1/jobseekerProfile", jobseekerProfileRoutes)
 app.use("/api/v1/employerProfile", employerProfileRoutes)
 
 
-const PORT = process.env.PORT || 5000
+const PORT =5000
 app.listen(PORT, () => {
     console.log(`🚀🚀 server is running on port - ${PORT}`)
 })

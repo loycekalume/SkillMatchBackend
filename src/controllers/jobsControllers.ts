@@ -88,12 +88,11 @@ export const getJobById = asyncHandler(async (req: Request, res: Response) => {
   res.status(200).json(result.rows[0]);
 });
 
-// Update Job - Employer Owns It
+
 // Update Job - Employer Owns It
 export const updateJob = asyncHandler(async (req: UserRequest, res: Response) => {
     const { id } = req.params;
-  
-    // ✅ Step 1: Get the employer's profile_id
+ 
     const profileQuery = await pool.query(
       `SELECT profile_id FROM employer_profiles WHERE user_id = $1`,
       [req.user?.user_id]
@@ -164,22 +163,41 @@ export const updateJob = asyncHandler(async (req: UserRequest, res: Response) =>
   
 
 
-export const deleteJob = asyncHandler(async (req: UserRequest, res: Response) => {
-  const { id } = req.params;
-
-  const job = await pool.query("SELECT * FROM jobs WHERE job_id = $1", [id]);
-  if (job.rows.length === 0) {
-    return res.status(404).json({ message: "Job not found" });
-  }
-
-  const jobData = job.rows[0];
-  const isOwner = req.user?.user_id === jobData.employer_id;
-  const isAdmin = req.user?.role === "admin";
-
-  if (!isOwner && !isAdmin) {
-    return res.status(403).json({ message: "Not authorized to delete this job" });
-  }
-
-  await pool.query("DELETE FROM jobs WHERE job_id = $1", [id]);
-  res.json({ message: "Job deleted successfully" });
-});
+  export const deleteJob = asyncHandler(async (req: UserRequest, res: Response) => {
+    const { id } = req.params;
+  
+    // Get the job first
+    const job = await pool.query("SELECT * FROM jobs WHERE job_id = $1", [id]);
+    if (job.rows.length === 0) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+  
+    const jobData = job.rows[0];
+    
+    // Check if admin (keep this as is)
+    const isAdmin = req.user?.role === "admin";
+    
+    // For employer ownership check, we need to get their profile_id first
+    let isOwner = false;
+    
+    if (req.user?.role === "employer") {
+      // Get the employer's profile_id
+      const profileQuery = await pool.query(
+        `SELECT profile_id FROM employer_profiles WHERE user_id = $1`,
+        [req.user.user_id]
+      );
+      
+      if (profileQuery.rows.length > 0) {
+        const employerProfileId = profileQuery.rows[0].profile_id;
+        // Now compare with the job's employer_id
+        isOwner = employerProfileId === jobData.employer_id;
+      }
+    }
+  
+    if (!isOwner && !isAdmin) {
+      return res.status(403).json({ message: "Not authorized to delete this job" });
+    }
+  
+    await pool.query("DELETE FROM jobs WHERE job_id = $1", [id]);
+    res.json({ message: "Job deleted successfully" });
+  });
